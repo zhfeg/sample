@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Article;
 
 class UsersController extends Controller
 {
@@ -13,6 +14,11 @@ class UsersController extends Controller
     }
 
     public function show(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    public function show_article(User $user)
     {
         return view('users.show', compact('user'));
     }
@@ -31,6 +37,8 @@ class UsersController extends Controller
           'password'=>bcrypt($request->password),
         ]);
        
+
+       Auth::login($user);
 
        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
        
